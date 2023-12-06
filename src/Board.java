@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Board {
     String[][] board;
@@ -15,5 +16,15 @@ public class Board {
             }
             System.out.println();
         }
+    }
+
+    public void xMove(){
+        System.out.println("X it's your turn");
+        Scanner input = new Scanner(System.in);
+        String xMove = input.next();
+
+        int i = Character.getNumericValue(xMove.charAt(0)) - 1;
+        int j = Character.getNumericValue(xMove.charAt(1)) - 1;
+        this.board[i][j] = "[x]";
     }
 }

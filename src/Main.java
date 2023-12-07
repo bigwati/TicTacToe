@@ -1,13 +1,13 @@
 public class Main {
     public static void main(String[] args) {
-        Board myGame = new Board(new String[4][4]);
+        Board myGame = new Board(3);
 
         myGame.printBoard();
 
-        myGame.xMove();
+        myGame.userMove("x");
         myGame.printBoard();
 
-        myGame.oMove();
+        myGame.userMove("o");
         myGame.printBoard();
     }
 }

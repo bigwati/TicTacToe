@@ -5,69 +5,55 @@ import java.util.*;
 public class Board {
     String[][] board;
 
-    public Board(String[][] board){
-        this.board = board;
-        Arrays.stream(this.board).forEach(a -> Arrays.fill(a, "[ ]"));
-
+    public Board(Integer boardSize){
+        this.board = new String[boardSize][boardSize];
         this.board[0][0] = "  ";
-        for (int i = 1; i < this.board.length; i++){
-            this.board[i][0] = String.valueOf(i);
-        }
-        for (int i = 1; i < this.board.length; i++){
-            //this.board[i][0] = String.valueOf(i);
-            int l = 1;
-            for (int k = 'A' ; k < 'D'; k++){
-                this.board[0][l] = (char)k + "  ";
-                l++;
-            }
-        }
+        Arrays.stream(this.board).forEach(a -> Arrays.fill(a, " "));
     }
 
     public void printBoard(){
+        System.out.println("   A   B   C");
+        int i =1;
         for (String[] row : this.board) {
+            System.out.print(i + " ");
             for (String value : row) {
-                System.out.print(value + "  ");
+                System.out.print("[" + value + "]" + " ");
             }
             System.out.println();
+            i++;
         }
         System.out.println();
     }
 
-    public void xMove(){
-        System.out.println("X it's your turn");
+    public void userMove(String playerSymbol){
+        System.out.println(playerSymbol + " it's your turn");
         Scanner input = new Scanner(System.in);
-        String xMove = input.next();
 
-        while(Character.getNumericValue(xMove.charAt(0))-9 > 3
-                || Character.getNumericValue(xMove.charAt(0))-9 < 1
-                || Character.getNumericValue(xMove.charAt(1)) < 1
-                || Character.getNumericValue(xMove.charAt(1)) > 3
-                || xMove.length() != 2){
-            System.out.println(wrongInput());
-            xMove = input.next();
+        char lastColumnIndex = (char)(this.board.length+'A');
+        List<Character> columnIndexes = new ArrayList<>();
+        for(char i='A'; i < lastColumnIndex; i++) {
+            columnIndexes.add(i);
         }
 
-        int i = Character.getNumericValue(xMove.charAt(0))-9;
-        int j = Character.getNumericValue(xMove.charAt(1));
-        this.board[j][i] = "[x]";
-    }
-    public void oMove(){
-        System.out.println("O it's your turn");
-        Scanner input = new Scanner(System.in);
-        String oMove = input.next();
+        String userMove;
+        char firstChar;
+        int secondChar;
+        int i = 0;
+        do {
+            if(i >= 1){
+                System.out.println(wrongInput());
+            }
+            userMove = input.next().toUpperCase();
+            while(userMove.length() != 2){
+                System.out.println(wrongInput());
+                userMove = input.next().toUpperCase();
+            }
+            firstChar = userMove.charAt(0);
+            secondChar = Character.getNumericValue(userMove.charAt(1))-1;
+            i++;
+        }while(!columnIndexes.contains(firstChar) || secondChar < 0 || secondChar > 2);
 
-        while(Character.getNumericValue(oMove.charAt(0))-9 > 3
-                || Character.getNumericValue(oMove.charAt(0))-9 < 1
-                || Character.getNumericValue(oMove.charAt(1)) < 1
-                || Character.getNumericValue(oMove.charAt(1)) > 3
-                || oMove.length() != 2){
-            System.out.println(wrongInput());
-            oMove = input.next();
-        }
-
-        int i = Character.getNumericValue(oMove.charAt(0))-9;
-        int j = Character.getNumericValue(oMove.charAt(1));
-        this.board[i][j] = "[o]";
+        this.board[secondChar][Character.getNumericValue(firstChar)-10] = playerSymbol;
     }
 
     public String wrongInput(){

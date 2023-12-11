@@ -60,6 +60,44 @@ public class Board {
         this.board[secondChar][firstChar] = playerSymbol;
     }
 
+    public boolean winCheck(String playerSymbol){
+        for(int i = 1; i < this.board.length-1; i++){
+            for(int j = 1; j < this.board.length-1; j++) {
+                if (!this.board[i][j].equals(" ") &
+                        ((this.board[i][j].equals(this.board[i-1][j-1]) & this.board[i][j].equals(this.board[i+1][j+1]))
+                        || (this.board[i][j].equals(this.board[i+1][j-1]) & this.board[i][j].equals(this.board[i-1][j+1])))
+                    ) {
+                    System.out.println(playerSymbol + " won");
+                    return false;
+                }
+            }
+        }
+
+        for(int i = 0; i < this.board.length; i++){
+            for(int j = 1; j < this.board.length-1; j++) {
+                if (!this.board[i][j].equals(" ") &
+                        ((this.board[i][j].equals(this.board[i][j-1]) & this.board[i][j].equals(this.board[i][j+1])))
+                ) {
+                    System.out.println(playerSymbol + " won");
+                    return false;
+                }
+            }
+        }
+
+        for(int i = 1; i < this.board.length-1; i++){
+            for(int j = 0; j < this.board.length; j++) {
+                if (!this.board[i][j].equals(" ") &
+                        ((this.board[i][j].equals(this.board[i-1][j]) & this.board[i][j].equals(this.board[i+1][j])))
+                ) {
+                    System.out.println(playerSymbol + " won");
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public String wrongInput(){
         String[] output = {"You're an idiot, try again",
                 "It's not so hard, try again",

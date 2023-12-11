@@ -3,11 +3,22 @@ public class Main {
         Board myGame = new Board(4);
 
         myGame.printBoard();
+        String playerSymbol = "x";
 
-        myGame.userMove("x");
-        myGame.printBoard();
 
-        myGame.userMove("o");
-        myGame.printBoard();
+        do{
+            playerSymbol = "x";
+            myGame.userMove(playerSymbol);
+            myGame.printBoard();
+
+            if(!myGame.winCheck(playerSymbol)){
+                break;
+            }
+
+            playerSymbol = "o";
+            myGame.userMove("o");
+            myGame.printBoard();
+        }while(myGame.winCheck(playerSymbol));
+
     }
 }

@@ -18,6 +18,7 @@ public class Main {
             playerSymbol = "o";
             myGame.userMove("o");
             myGame.printBoard();
+
         }while(myGame.winCheck(playerSymbol));
 
     }

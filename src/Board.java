@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Board {
     String[][] board;
+    int firstChar = 0;
+    int secondChar = 0;
 
     public Board(Integer boardSize){
         this.board = new String[boardSize][boardSize];
@@ -32,10 +34,15 @@ public class Board {
     public void userMove(String playerSymbol){
         System.out.println(playerSymbol + " it's your turn");
 
+        inputCheck();
+
+        this.board[secondChar][firstChar] = playerSymbol;
+    }
+
+    public void inputCheck(){
         Scanner input = new Scanner(System.in);
         String userMove = "";
-        int firstChar = 0;
-        int secondChar = 0;
+
         int i = 0;
 
         do {
@@ -56,8 +63,6 @@ public class Board {
                 || secondChar >= this.board.length
                 || userMove.length() != 2
                 || !this.board[secondChar][firstChar].equals(" "));
-
-        this.board[secondChar][firstChar] = playerSymbol;
     }
 
     public boolean winCheck(String playerSymbol){
@@ -67,18 +72,7 @@ public class Board {
                         ((this.board[i][j].equals(this.board[i-1][j-1]) & this.board[i][j].equals(this.board[i+1][j+1]))
                         || (this.board[i][j].equals(this.board[i+1][j-1]) & this.board[i][j].equals(this.board[i-1][j+1])))
                     ) {
-                    System.out.println(playerSymbol + " won");
-                    return false;
-                }
-            }
-        }
-
-        for(int i = 0; i < this.board.length; i++){
-            for(int j = 1; j < this.board.length-1; j++) {
-                if (!this.board[i][j].equals(" ") &
-                        ((this.board[i][j].equals(this.board[i][j-1]) & this.board[i][j].equals(this.board[i][j+1])))
-                ) {
-                    System.out.println(playerSymbol + " won");
+                    System.out.println(playerSymbol + " won!");
                     return false;
                 }
             }
@@ -86,10 +80,10 @@ public class Board {
 
         for(int i = 1; i < this.board.length-1; i++){
             for(int j = 0; j < this.board.length; j++) {
-                if (!this.board[i][j].equals(" ") &
-                        ((this.board[i][j].equals(this.board[i-1][j]) & this.board[i][j].equals(this.board[i+1][j])))
+                if (!this.board[i][j].equals(" ") & (this.board[i][j].equals(this.board[i-1][j]) & this.board[i][j].equals(this.board[i+1][j]))
+                                ||!this.board[j][i].equals(" ") & ((this.board[j][i].equals(this.board[j][i-1]) & this.board[j][i].equals(this.board[j][i+1])))
                 ) {
-                    System.out.println(playerSymbol + " won");
+                    System.out.println(playerSymbol + " won!");
                     return false;
                 }
             }

@@ -1,9 +1,10 @@
 public class Main {
     public static void main(String[] args) {
+
         Board myGame = new Board(4);
 
         myGame.printBoard();
-        String playerSymbol = "x";
+        String playerSymbol;
 
 
         do{

@@ -66,17 +66,6 @@ public class Board {
     }
 
     public boolean winCheck(String playerSymbol){
-        for(int i = 1; i < this.board.length-1; i++){
-            for(int j = 1; j < this.board.length-1; j++) {
-                if (!this.board[i][j].equals(" ") &
-                        ((this.board[i][j].equals(this.board[i-1][j-1]) & this.board[i][j].equals(this.board[i+1][j+1]))
-                        || (this.board[i][j].equals(this.board[i+1][j-1]) & this.board[i][j].equals(this.board[i-1][j+1])))
-                    ) {
-                    System.out.println(playerSymbol + " won!");
-                    return false;
-                }
-            }
-        }
 
         for(int i = 1; i < this.board.length-1; i++){
             for(int j = 0; j < this.board.length; j++) {
@@ -86,6 +75,15 @@ public class Board {
                     System.out.println(playerSymbol + " won!");
                     return false;
                 }
+
+                if(j > 0 & j < this.board.length-1){
+                    if (!this.board[i][j].equals(" ") &
+                            ((this.board[i][j].equals(this.board[i-1][j-1]) & this.board[i][j].equals(this.board[i+1][j+1]))
+                                    || (this.board[i][j].equals(this.board[i+1][j-1]) & this.board[i][j].equals(this.board[i-1][j+1])))
+                    ) {
+                        System.out.println(playerSymbol + " won!");
+                        return false;
+                }}
             }
         }
 
